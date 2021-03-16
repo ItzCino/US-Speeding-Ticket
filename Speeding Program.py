@@ -53,32 +53,59 @@ for data in dataDict.keys():
     differenceInTime = (exitTimeInSec.total_seconds() - entryTimeInSec.total_seconds())
     metersPerSecond = totalTunnelZone / differenceInTime
     kmPerHour = (metersPerSecond * 3600) / 1000
+    kmPerHour = int(kmPerHour)
     #print("{}".format(kmPerHour))
     carSpeeds[data] = kmPerHour
-    if kmPerHour > 80:
-        speeding.append(data)
-    else:
-        safe.append(data)
-'''
-for dataKey in dataDict.keys():
-    if dataKey in speeding:
-        print("{}   {}  {}  {}".format(dataKey, ((dataDict[dataKey])[0]), ((dataDict[dataKey])[0]), "Yes"))
-    else:
-        print("{}   {}  {}  {}".format(dataKey, ((dataDict[dataKey])[0]), ((dataDict[dataKey])[0]), "No"))
-'''
+    #print(data, ",", round(kmPerHour, 2))
 
+#print(speedFines)
+
+maxSpeed = ((speedFines[-1])[1])
+maxFine = ((speedFines[-1])[2])
+
+
+
+for carPlate in carSpeeds.keys():
+    #print(carPlate,",", carSpeeds[carPlate])
+    for speedRange in speedFines:
+        speed = (carSpeeds[carPlate] - 80)
+        speedRangeMin = speedRange[0]
+        speedRangeMax = speedRange[1]
+        if (speed <= speedRangeMax) and (speed >= speedRangeMin):
+            carFine = speedRange[2]
+            print("{} speed is {} so fine is {}".format(carPlate, carSpeeds[carPlate], carFine))
+            continue
+        if speed > maxSpeed:
+            print("{} speed is {} so fine is {}".format(carPlate, carSpeeds[carPlate], maxFine))
+        
+        
+#print(speedFines)
+#for i in carPlate:
+    #print(i)
+#print(speedFines)
+
+#for key in carPlate:
+    #print(key,",", dataDict[key])
+
+#print("====================")
+#for key in safe:
+    #print(key,",", dataDict[key])
+
+'''
 for speedRange in speedFines:
     #print(speedRange)
-    for dataKey in speeding:
+    for dataKey in carPlate:
         #print(dataKey)
         carSpeed = int(carSpeeds[dataKey])
         #print(speedRange[1], carSpeed , speedRange[0])
-        if speedRange[1] > (carSpeed - speedLimit) and (carSpeed - speedLimit) > speedRange[0]:
-            #print("TRUE")
-            print("{} speed is {}KM/HR so fine is ${}".format(dataKey, int(carSpeed), speedRange[2]))
+        #if speedRange[1] > (carSpeed - speedLimit) and (carSpeed - speedLimit) > speedRange[0]:
+            ##print("TRUE")
+            #print("{} speed is {}KM/HR so fine is ${}".format(dataKey, int(carSpeed), speedRange[2]))
         #print("{} speed is {} so fine is {}".format(dataKey, carSpeed, speedRange[2]))
-        else:
-            print("{} speed is {}KM/HR so fine is ${}".format(dataKey, int(carSpeed), 0))
+        
+        #print("{} speed is {}KM/HR so fine is ${}".format(dataKey, int(carSpeed), 0))
+'''
+           
 '''
 print("SPEEEEEEEEEEEEEEEEEEEED")
 print(len(speeding))
@@ -90,6 +117,6 @@ print("SPEEEEEEEEEEEEEEEEEEEED")
 print(len(safe))
 for key in safe:
    print(key, dataDict[key])
-   '''
+'''
 
 
