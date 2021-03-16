@@ -75,8 +75,8 @@ for carPlate in carSpeeds.keys():
             carFine = speedRange[2]
             print("{} speed is {} so fine is {}".format(carPlate, carSpeeds[carPlate], carFine))
             continue
-        if speed > maxSpeed:
-            print("{} speed is {} so fine is {}".format(carPlate, carSpeeds[carPlate], maxFine))
+    if speed > maxSpeed:
+        print("{} speed is {} so fine is {}".format(carPlate, carSpeeds[carPlate], maxFine))
         
         
 #print(speedFines)
