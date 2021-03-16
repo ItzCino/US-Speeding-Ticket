@@ -11,7 +11,7 @@ speeding = []
 safe = []
 speedFines = []
 
-speedDataName = "tunnel times fuller set.csv"
+speedDataName = "test_tunnel.txt"
 speedFinesName = "fine_rates.txt"
 
 speedFileData = open(speedDataName, "r")
@@ -76,9 +76,12 @@ for speedRange in speedFines:
         if speedRange[1] > (carSpeed - speedLimit) and (carSpeed - speedLimit) > speedRange[0]:
             #print("TRUE")
             print("{} speed is {}KM/HR so fine is ${}".format(dataKey, int(carSpeed), speedRange[2]))
-        #print("{} speed is {} so fine is {}".format(dataKey, carSpeed, speedRange[2]))
-        else:
-            print("{} speed is {}KM/HR so fine is ${}".format(dataKey, int(carSpeed), 0))
+            
+for dataKey in safe:
+    carSpeed = carSpeeds[dataKey]
+    print("{} speed is {}KM/HR so fine is ${}".format(dataKey, int(carSpeed), 0))
+            
+    
 '''
 print("SPEEEEEEEEEEEEEEEEEEEED")
 print(len(speeding))
