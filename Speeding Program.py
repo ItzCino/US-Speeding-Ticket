@@ -1,18 +1,20 @@
 #Simple Dictionary import
-
+import time
 from datetime import timedelta
+
+speedDataName = "test_tunnel.txt"
+speedFinesName = "fine_rates.txt"
+
 tunnelLength = 2690
-totalTunnelZone = tunnelLength
 speedLimit = 80
+totalTunnelZone = tunnelLength
+
 
 dataDict = {}
 carSpeeds = {}
 speeding = []
 safe = []
 speedFines = []
-
-speedDataName = "test_tunnel.txt"
-speedFinesName = "fine_rates.txt"
 
 speedFileData = open(speedDataName, "r")
 speedFinesData = open(speedFinesName, "r")
@@ -68,7 +70,7 @@ maxFine = ((speedFines[-1])[2])
 for carPlate in carSpeeds.keys():
     #print(carPlate,",", carSpeeds[carPlate])
     for speedRange in speedFines:
-        speed = (carSpeeds[carPlate] - 80)
+        speed = (carSpeeds[carPlate] - speedLimit)
         speedRangeMin = speedRange[0]
         speedRangeMax = speedRange[1]
         if (speed <= speedRangeMax) and (speed >= speedRangeMin):
@@ -77,55 +79,5 @@ for carPlate in carSpeeds.keys():
             continue
     if speed > maxSpeed:
         print("{} speed is {} so fine is {}".format(carPlate, carSpeeds[carPlate], maxFine))
-        
-        
-#print(speedFines)
-#for i in carPlate:
-    #print(i)
-#print(speedFines)
 
-#for key in carPlate:
-    #print(key,",", dataDict[key])
-
-#print("====================")
-#for key in safe:
-    #print(key,",", dataDict[key])
-
-'''
-for speedRange in speedFines:
-    #print(speedRange)
-    for dataKey in carPlate:
-        #print(dataKey)
-        carSpeed = int(carSpeeds[dataKey])
-        #print(speedRange[1], carSpeed , speedRange[0])
-        #if speedRange[1] > (carSpeed - speedLimit) and (carSpeed - speedLimit) > speedRange[0]:
-            ##print("TRUE")
-            #print("{} speed is {}KM/HR so fine is ${}".format(dataKey, int(carSpeed), speedRange[2]))
-        #print("{} speed is {} so fine is {}".format(dataKey, carSpeed, speedRange[2]))
-        
-        #print("{} speed is {}KM/HR so fine is ${}".format(dataKey, int(carSpeed), 0))
-'''
-'''         
-        if speedRange[1] > (carSpeed - speedLimit) and (carSpeed - speedLimit) > speedRange[0]:
-            #print("TRUE")
-            print("{} speed is {}KM/HR so fine is ${}".format(dataKey, int(carSpeed), speedRange[2]))
-            
-for dataKey in safe:
-    carSpeed = carSpeeds[dataKey]
-    print("{} speed is {}KM/HR so fine is ${}".format(dataKey, int(carSpeed), 0))
-            
-'''
-'''
-print("SPEEEEEEEEEEEEEEEEEEEED")
-print(len(speeding))
-for key in speeding:
-    print(key, dataDict[key])
-print("+++++++++++++++++++++++")
-print("SAFEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
-print("SPEEEEEEEEEEEEEEEEEEEED")
-print(len(safe))
-for key in safe:
-   print(key, dataDict[key])
-'''
-
-
+time.sleep(50)
