@@ -71,11 +71,23 @@ def finesFileFormatCheck(speedFinesData):
         return speedFines, errorOccur
 
 def speedFileCheck():
+        while True:
+                try:
+                        speedDataName = input("\nPlease input the name of the data file: ")
+                        speedFileData = open(speedDataName, "r")
+                        return speedDataName
+                        
+                except FileNotFoundError:
+                        print('WARNING!! This data file called "{}" does NOT EXIST!!'.format(speedDataName))
+                        print("Please check your file name or enter another file name.")
+                        print("Make sure the file is in the correct directory!")
+                
+
+def speedFileFormatCheck(speedFileData):
         dataDict = {}
         speedFormatError = False
         speedFileLineCounter = 0
         try:    
-                speedDataName = input("\nPlease input the name of the data file: ")
                 speedFileData = open(speedDataName, "r")
                 
                 dataLines = speedFileData.readlines()
@@ -92,14 +104,11 @@ def speedFileCheck():
                         else:
                                 dataDict[dataKey].append(dataValue)                
                 return dataDict, speedFormatError
-        except FileNotFoundError:
-                print('WARNING!! This data file called "{}" does NOT EXIST!!'.format(speedDataName))
-                print("Please check your file name or enter another file name.")
-                print("Make sure the file is in the correct directory!")
-                speedFileCheck()
         except:
                 print("WARNING!!! Error occurred on line {}: {}".format(speedFileLineCounter, data))
                 speedFormatError = True
+
+
                 
 def continueOrExitForFines():
         print("Formatting Error occurred on the lines presented above.")
@@ -160,7 +169,9 @@ if formattingErrorForFineRates is True:
         continueState = continueOrExitForFines()
         continueOrExitDueToFormat(continueState)
 
-dataDict, speedFormatError = speedFileCheck()
+speedDataName = speedFileCheck()
+print(speedDataName)
+dataDict, speedFormatError = speedFileFormatCheck(speedDataName)
 if speedFormatError is True:
         continueState = speedDataFormatError()
         continueOrExitDueToFormat(continueState)
