@@ -3,6 +3,10 @@ import sys
 import time
 from datetime import timedelta
 
+global speedFileName
+#global errorCarData
+#errorCarData = []
+
 #speedDataName = "tunnel times fuller set.csvs"
 speedFinesName = "fine_rates.txt"
 defaultFinesData = ["1-10-30\n", 
@@ -73,9 +77,9 @@ def finesFileFormatCheck(speedFinesData):
 def speedFileCheck():
         while True:
                 try:
-                        speedDataName = input("\nPlease input the name of the data file: ")
-                        speedFileData = open(speedDataName, "r")
-                        return speedDataName
+                        speedFileName = input("\nPlease input the name of the data file: ")
+                        speedFileData = open(speedFileName, "r")
+                        return speedFileName
                         
                 except FileNotFoundError:
                         print('WARNING!! This data file called "{}" does NOT EXIST!!'.format(speedDataName))
@@ -83,30 +87,42 @@ def speedFileCheck():
                         print("Make sure the file is in the correct directory!")
                 
 
-def speedFileFormatCheck(speedFileData):
+def speedFileFormatCheck(speedFileName):
+        errorCarData = []
         dataDict = {}
         speedFormatError = False
         speedFileLineCounter = 0
-        try:    
-                speedFileData = open(speedDataName, "r")
-                
-                dataLines = speedFileData.readlines()
-                for data in dataLines:
-                        speedFileLineCounter += 1
-                        if data == "\n":
-                                continue
-                        #print(data)
-                        dataKey, dataValue = data.split(",")
-                        dataValue = ((dataValue.split("\n"))[0])
-                        if dataKey not in dataDict.keys():
-                                dataDict.setdefault(dataKey, [])
-                                dataDict[dataKey].append(dataValue)
-                        else:
-                                dataDict[dataKey].append(dataValue)                
-                return dataDict, speedFormatError
-        except:
-                print("WARNING!!! Error occurred on line {}: {}".format(speedFileLineCounter, data))
-                speedFormatError = True
+        while True:
+                try:    
+                        speedFileData = open(speedFileName, "r")
+                        
+                        dataLines = speedFileData.readlines()
+                        for data in dataLines:
+                                speedFileLineCounter += 1
+                                if data == "\n":
+                                        continue
+                                #print(data)
+                                dataKey, dataValue = data.split(",")
+                                if dataKey in errorCarData:
+                                        continue
+                                dataValue = ((dataValue.split("\n"))[0])
+                                checkValue = dataValue.replace(":","")
+                                if int(checkValue) is False:
+                                        print("WARNING!!! Error occurred on line {}: {}".format(speedFileLineCounter, data))
+                                        speedFormatError = True
+                                        errorCarData.append(dataKey)
+                                if dataKey not in dataDict.keys():
+                                        dataDict.setdefault(dataKey, [])
+                                        dataDict[dataKey].append(dataValue)
+                                else:
+                                        dataDict[dataKey].append(dataValue)                
+                        return dataDict, speedFormatError
+                except:
+                        print("\nExcept: WARNING!!! Error occurred on line {}: {}".format(speedFileLineCounter, data))
+                        speedFormatError = True
+                        errorCarData.append(dataKey)
+                        #speedFileFormatCheck(speedFileData)
+                        #print(speedFileData)
 
 
                 
@@ -169,9 +185,9 @@ if formattingErrorForFineRates is True:
         continueState = continueOrExitForFines()
         continueOrExitDueToFormat(continueState)
 
-speedDataName = speedFileCheck()
-print(speedDataName)
-dataDict, speedFormatError = speedFileFormatCheck(speedDataName)
+speedFileName = speedFileCheck()
+print(speedFileName)
+dataDict, speedFormatError = speedFileFormatCheck(speedFileName)
 if speedFormatError is True:
         continueState = speedDataFormatError()
         continueOrExitDueToFormat(continueState)
