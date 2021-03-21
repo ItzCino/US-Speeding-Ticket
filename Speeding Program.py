@@ -1,22 +1,18 @@
-#Simple Dictionary import
+# US - Speeding Program By ZFC
+
 import sys
 import time
 from datetime import timedelta
 
-global speedFileName
-#global errorCarData
-#errorCarData = []
-
-#speedDataName = "tunnel times fuller set.csvs"
 speedFinesName = "fine_rates.txt"
-defaultFinesData = ["1-10-30\n", 
-                    "11-15-80\n", 
-                    "16-20-120\n", 
-                    "21-25-170\n", 
-                    "26-30-230\n", 
-                    "31-35-300\n", 
-                    "36-40-400\n", 
-                    "41-45-510\n", 
+defaultFinesData = ["1-10-30\n",
+                    "11-15-80\n",
+                    "16-20-120\n",
+                    "21-25-170\n",
+                    "26-30-230\n",
+                    "31-35-300\n",
+                    "36-40-400\n",
+                    "41-45-510\n",
                     "46-50-630"]
 
 tunnelLength = 2690
@@ -32,8 +28,7 @@ speedFines = []
 
 
 def finesFileCheck():
-        try:    
-                #print("opening fines file")
+        try:
                 speedFinesData = open(speedFinesName, "r")
                 return speedFinesData
         except FileNotFoundError:
@@ -53,6 +48,8 @@ def finesFileFormatCheck(speedFinesData):
         for fines in fineLines:
                 try:
                         lineCounter += 1
+                        if fines == "\n":
+                                continue
                         tempFineAndFee = []
                         fineAndFee = fines.split('-')
                         if len(fineAndFee) > 3 or len(fineAndFee) < 3:
@@ -69,7 +66,7 @@ def finesFileFormatCheck(speedFinesData):
                         speedFines.append(tempFineAndFee)
                 except:
                         if fines != "\n":
-                                print("WARNING!: Formatting occured in fine_rates.txt file on line {}: {}".format(lineCounter, fines))
+                                print("Except: WARNING!: Formatting occured in fine_rates.txt file on line {}: {}".format(lineCounter, fines))
                                 time.sleep(1)
                                 errorOccur = True
         return speedFines, errorOccur
@@ -78,55 +75,60 @@ def speedFileCheck():
         while True:
                 try:
                         speedFileName = input("\nPlease input the name of the data file: ")
+                        if speedFileName == "" or speedFileName == " ":
+                                print("WARNING!!! : PLEASE DO NOT LEAVE BLANK!!!\n")
+                                continue
                         speedFileData = open(speedFileName, "r")
+                        speedFileData.close()
                         return speedFileName
-                        
+
                 except FileNotFoundError:
-                        print('WARNING!! This data file called "{}" does NOT EXIST!!'.format(speedDataName))
+                        print('WARNING!! This data file called "{}" does NOT EXIST!!'.format(speedFileName))
                         print("Please check your file name or enter another file name.")
                         print("Make sure the file is in the correct directory!")
-                
+
 
 def speedFileFormatCheck(speedFileName):
         errorCarData = []
         dataDict = {}
+        speedFileName = speedFileName
         speedFormatError = False
         speedFileLineCounter = 0
         while True:
-                try:    
+                try:
                         speedFileData = open(speedFileName, "r")
-                        
+
                         dataLines = speedFileData.readlines()
                         for data in dataLines:
                                 speedFileLineCounter += 1
                                 if data == "\n":
                                         continue
-                                #print(data)
                                 dataKey, dataValue = data.split(",")
                                 if dataKey in errorCarData:
                                         continue
                                 dataValue = ((dataValue.split("\n"))[0])
-                                checkValue = dataValue.replace(":","")
+                                checkValue = dataValue.replace(":", "")
                                 if int(checkValue) is False:
                                         print("WARNING!!! Error occurred on line {}: {}".format(speedFileLineCounter, data))
                                         speedFormatError = True
                                         errorCarData.append(dataKey)
                                 if dataKey not in dataDict.keys():
+                                        dataKey = dataKey
                                         dataDict.setdefault(dataKey, [])
                                         dataDict[dataKey].append(dataValue)
                                 else:
-                                        dataDict[dataKey].append(dataValue)                
+                                        dataDict[dataKey].append(dataValue)
                         return dataDict, speedFormatError
                 except:
                         print("\nExcept: WARNING!!! Error occurred on line {}: {}".format(speedFileLineCounter, data))
                         speedFormatError = True
-                        errorCarData.append(dataKey)
-                        #speedFileFormatCheck(speedFileData)
-                        #print(speedFileData)
+                        try:
+                                errorCarData.append(dataKey)
+                        except:
+                                return dataDict, speedFormatError
 
-
-                
 def continueOrExitForFines():
+        print("\n#=#=#=#=# !!!PLEASE READ!!! #=#=#=#=#\n")
         print("Formatting Error occurred on the lines presented above.")
         print("Please Correct the formatting before running this program again.")
         print("You can also choose to delete the 'fine_rates.txt' file and the")
@@ -134,39 +136,40 @@ def continueOrExitForFines():
         print("The default format is for range of fine rates is: MinSpeed-MaxSpeed-FineAmount\n")
         print("However, you can also choose to continue but the program may not work as intended\n")
         while True:
-                try:    
+                try:
                         print("\nWould you like to continue or exit the program")
                         print("WARNING!: Continuing may not work as intended! ie missing values / calculations")
-                        continueState = (input("Type YES to exit or NO to continue the program: ")).lower()
-                        if continueState == "yes" or continueState == "y":
+                        continueState = (input("Type EXIT to exit or CONTINUE to continue the program: ")).lower()
+                        if continueState == "exit" or continueState == "e":
                                 return True
-                        if continueState == "no" or continueState == "n":
+                        if continueState == "continue" or continueState == "c":
                                 return False
-                        if continueState == "":
+                        if continueState == "" or continueState == " ":
                                 print("Nothing was entered\n")
                 except:
                         print("invalid input")
 
 
 def speedDataFormatError():
+        print("=========================================================================================")
         print("Formatting Error occurred on the lines presented above.")
         print("Please Correct the formatting for the above data before choosing to run this file again.")
         print("The default format is for an speed entry is;  {Registration},HH:MM:SS\n")
         print("However, you can also choose to continue but the program may not work as intended:")
         print("ie. missing entries / miss calculations")
         while True:
-                try:    
+                try:
                         print("\nWould you like to continue or exit the program")
                         print("WARNING!: Continuing may not work as intended! ie entries / calculations")
-                        continueState = (input("Type YES to exit or NO to continue the program: ")).lower()
-                        if continueState == "yes" or continueState == "y":
+                        continueState = (input("Type EXIT to exit or CONTINUE to continue the program: ")).lower()
+                        if continueState == "exit" or continueState == "e":
                                 return True
-                        if continueState == "no" or continueState == "n":
+                        if continueState == "continue" or continueState == "c":
                                 return False
-                        if continueState == "":
+                        if continueState == "" or continueState == " ":
                                 print("Nothing was entered\n")
                 except:
-                        print("invalid input") 
+                        print("invalid input")
 
 def continueOrExitDueToFormat(continueState):
         if continueState is True:
@@ -175,18 +178,17 @@ def continueOrExitDueToFormat(continueState):
                 sys.exit()
         if continueState is False:
                 print("\nContinuing Program: WARNING!: Continuing may not work as intended!\n")
-                time.sleep(2)              
+                time.sleep(2)
 speedFinesData = finesFileCheck()
 speedFines, formattingErrorForFineRates = finesFileFormatCheck(speedFinesData)
-print(speedFines)
+
 
 if formattingErrorForFineRates is True:
-        #include a option to simply create a new fine rates file in program
+        # include a option to simply create a new fine rates file in program
         continueState = continueOrExitForFines()
         continueOrExitDueToFormat(continueState)
 
 speedFileName = speedFileCheck()
-print(speedFileName)
 dataDict, speedFormatError = speedFileFormatCheck(speedFileName)
 if speedFormatError is True:
         continueState = speedDataFormatError()
@@ -195,7 +197,6 @@ if speedFormatError is True:
 for data in dataDict.keys():
         entryTime = ((dataDict[data])[0])
         exitTime = ((dataDict[data])[1])
-        #print(entryTime, exitTime)
         entryTimeSplit = entryTime.split(":")
         exitTimeSplit = exitTime.split(":")
         entryTimeInSec = timedelta(hours=int((entryTimeSplit[0])), minutes=int((entryTimeSplit[1])), seconds=int((entryTimeSplit[2])))
@@ -204,32 +205,38 @@ for data in dataDict.keys():
         metersPerSecond = totalTunnelZone / differenceInTime
         kmPerHour = (metersPerSecond * 3600) / 1000
         kmPerHour = int(kmPerHour)
-        #print("{}".format(kmPerHour))
         carSpeeds[data] = kmPerHour
-    #print(data, ",", round(kmPerHour, 2))
-
-#print(speedFines)
 
 maxSpeed = ((speedFines[-1])[1])
 maxFine = ((speedFines[-1])[2])
 
-
-
 for carPlate in carSpeeds.keys():
-        #print(carPlate,",", carSpeeds[carPlate])
         for speedRange in speedFines:
                 speed = (carSpeeds[carPlate] - speedLimit)
                 speedRangeMin = speedRange[0]
                 speedRangeMax = speedRange[1]
                 if (speed <= speedRangeMax) and (speed >= speedRangeMin):
                         carFine = speedRange[2]
-                        print("{} speed is {} so fine is {}".format(carPlate, carSpeeds[carPlate], carFine))
+                        print("{} speed is {} so fine is ${}".format(carPlate, carSpeeds[carPlate], carFine))
                         continue
-        if (speed <= 0 ):
-                carFine = None
-                print("{} speed is {} so fine is {}".format(carPlate, carSpeeds[carPlate], carFine))
-                continue                
+        if (speed <= 0):
+                carFine = 0
+                print("{} speed is {} km/hr so fine is ${}".format(carPlate, carSpeeds[carPlate], carFine))
+                continue
         if speed > maxSpeed:
-                print("{} speed is {} so fine is {}".format(carPlate, carSpeeds[carPlate], maxFine))
+                print("{} speed is {} so fine is ${}".format(carPlate, carSpeeds[carPlate], maxFine))
 
+print("\n Terminal will exit in 10 seconds . . .")
+time.sleep(5)
+print("\n Terminal will exit in 5 seconds . . .")
+time.sleep(1)
+print("\n Terminal will exit in 4 seconds . . .")
+time.sleep(1)
+print("\n Terminal will exit in 3 seconds . . .")
+time.sleep(1)
+print("\n Terminal will exit in 2 seconds . . .")
+time.sleep(1)
+print("\n Terminal will exit in 1 seconds . . .")
+time.sleep(1)
+print("\n Exiting . . .")
 time.sleep(1)
