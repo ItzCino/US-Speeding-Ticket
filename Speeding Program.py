@@ -17,6 +17,11 @@ defaultFinesData = ["1-10-30\n",
 
 tunnelLength = 2690
 speedLimit = 80
+#warningSpeed = 7 # in km/hr
+#warningTimeLimit = int((tunnelLength / ((warningSpeed*1000)/3600))/60)
+warningTimeLimit = 15
+warningSpeed = int(((tunnelLength / (warningTimeLimit*60))*3.6))
+print(warningSpeed)
 totalTunnelZone = tunnelLength
 
 
@@ -128,7 +133,7 @@ def speedFileFormatCheck(speedFileName):
                                 return dataDict, speedFormatError
 
 def continueOrExitForFines():
-        print("\n#=#=#=#=# !!!PLEASE READ!!! #=#=#=#=#\n")
+        print("#=#=#=#=# !!!PLEASE READ!!! #=#=#=#=#\n")
         print("Formatting Error occurred on the lines presented above.")
         print("Please Correct the formatting before running this program again.")
         print("You can also choose to delete the 'fine_rates.txt' file and the")
@@ -179,9 +184,56 @@ def continueOrExitDueToFormat(continueState):
         if continueState is False:
                 print("\nContinuing Program: WARNING!: Continuing may not work as intended!\n")
                 time.sleep(2)
+                
+
+def calculateSpeedPerHr(dataDict):
+        for data in dataDict.keys():
+                if len(dataDict[data]) < 2:
+                        if len(dataDict[data]) == 0:
+                                print("WARNING!!! Car with unknown Plate has entered/exited at".format(dataDict[data]))
+                                continue
+                        print("WARNING!!! Car: {} has not been reported to have exited tunnel!!!".format(data))
+                        continue
+                entryTime = ((dataDict[data])[0])
+                exitTime = ((dataDict[data])[1])
+                entryTimeSplit = entryTime.split(":")
+                exitTimeSplit = exitTime.split(":")
+                entryTimeInSec = timedelta(hours=int((entryTimeSplit[0])), minutes=int((entryTimeSplit[1])), seconds=int((entryTimeSplit[2])))
+                exitTimeInSec = timedelta(hours=int((exitTimeSplit[0])), minutes=int((exitTimeSplit[1])), seconds=int((exitTimeSplit[2])))
+                differenceInTime = (exitTimeInSec.total_seconds() - entryTimeInSec.total_seconds())
+                metersPerSecond = totalTunnelZone / differenceInTime
+                kmPerHour = (metersPerSecond * 3600) / 1000
+                kmPerHour = int(kmPerHour)
+                carSpeeds[data] = kmPerHour
+                
+        return carSpeeds
+
+def calculateFines(carSpeeds):
+        
+        for carPlate in carSpeeds.keys():
+                for speedRange in speedFines:
+                        speed = (carSpeeds[carPlate] - speedLimit)
+                        speedRangeMin = speedRange[0]
+                        speedRangeMax = speedRange[1]
+                        if (speed <= speedRangeMax) and (speed >= speedRangeMin):
+                                carFine = speedRange[2]
+                                print("{} speed is {} km/hr so fine is ${}".format(carPlate, carSpeeds[carPlate], carFine))
+                                continue
+                if (speed + 80) <= warningSpeed:
+                        print("WARNING!!! Car: {} has was in the tunnel for more than {} minutes".format(carPlate, warningTimeLimit))  
+                if (speed <= 0):
+                        carFine = 0
+                        print("{} speed is {} km/hr so fine is ${}".format(carPlate, carSpeeds[carPlate], carFine))
+                if speed > maxSpeed:
+                        print("{} speed is {} km/hr so fine is ${}".format(carPlate, carSpeeds[carPlate], maxFine))
+                continue
+                
+
 speedFinesData = finesFileCheck()
 speedFines, formattingErrorForFineRates = finesFileFormatCheck(speedFinesData)
 
+maxSpeed = ((speedFines[-1])[1])
+maxFine = ((speedFines[-1])[2])
 
 if formattingErrorForFineRates is True:
         # include a option to simply create a new fine rates file in program
@@ -194,37 +246,8 @@ if speedFormatError is True:
         continueState = speedDataFormatError()
         continueOrExitDueToFormat(continueState)
 
-for data in dataDict.keys():
-        entryTime = ((dataDict[data])[0])
-        exitTime = ((dataDict[data])[1])
-        entryTimeSplit = entryTime.split(":")
-        exitTimeSplit = exitTime.split(":")
-        entryTimeInSec = timedelta(hours=int((entryTimeSplit[0])), minutes=int((entryTimeSplit[1])), seconds=int((entryTimeSplit[2])))
-        exitTimeInSec = timedelta(hours=int((exitTimeSplit[0])), minutes=int((exitTimeSplit[1])), seconds=int((exitTimeSplit[2])))
-        differenceInTime = (exitTimeInSec.total_seconds() - entryTimeInSec.total_seconds())
-        metersPerSecond = totalTunnelZone / differenceInTime
-        kmPerHour = (metersPerSecond * 3600) / 1000
-        kmPerHour = int(kmPerHour)
-        carSpeeds[data] = kmPerHour
-
-maxSpeed = ((speedFines[-1])[1])
-maxFine = ((speedFines[-1])[2])
-
-for carPlate in carSpeeds.keys():
-        for speedRange in speedFines:
-                speed = (carSpeeds[carPlate] - speedLimit)
-                speedRangeMin = speedRange[0]
-                speedRangeMax = speedRange[1]
-                if (speed <= speedRangeMax) and (speed >= speedRangeMin):
-                        carFine = speedRange[2]
-                        print("{} speed is {} so fine is ${}".format(carPlate, carSpeeds[carPlate], carFine))
-                        continue
-        if (speed <= 0):
-                carFine = 0
-                print("{} speed is {} km/hr so fine is ${}".format(carPlate, carSpeeds[carPlate], carFine))
-                continue
-        if speed > maxSpeed:
-                print("{} speed is {} so fine is ${}".format(carPlate, carSpeeds[carPlate], maxFine))
+carSpeeds = calculateSpeedPerHr(dataDict)
+calculateFines(carSpeeds)
 
 print("\n Terminal will exit in 10 seconds . . .")
 time.sleep(5)
