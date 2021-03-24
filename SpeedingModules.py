@@ -221,6 +221,8 @@ def calculateSpeedPerHr(dataDict):
                 metersPerSecond = totalTunnelZone / differenceInTime
                 kmPerHour = (metersPerSecond * 3600) / 1000
                 kmPerHour = int(kmPerHour)
+                if (kmPerHour * -1) > 0:
+                        print("WARNING!!! Car: {} EXIT TIME IS LATER THAN ENTRY TIME  ".format(data))
                 carSpeeds[data] = kmPerHour
                 
         return carSpeeds
