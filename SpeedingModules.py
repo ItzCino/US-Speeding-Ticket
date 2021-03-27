@@ -246,39 +246,4 @@ def calculateFines(carSpeeds, maxSpeed, maxFine):
                 if speed > maxSpeed:
                         print("{} speed is {} km/hr so fine is ${}".format(carPlate, carSpeeds[carPlate], maxFine))
                 continue
-                
 
-#speedFinesData = finesFileCheck()
-#speedFines, formattingErrorForFineRates = finesFileFormatCheck(speedFinesData)
-
-#maxSpeed = ((speedFines[-1])[1])
-#maxFine = ((speedFines[-1])[2])
-
-#if formattingErrorForFineRates is True:
-        ## include a option to simply create a new fine rates file in program
-        #continueState = continueOrExitForFines()
-        #continueOrExitDueToFormat(continueState)
-
-#speedFileName = speedFileCheck()
-#dataDict, speedFormatError = speedFileFormatCheck(speedFileName)
-#if speedFormatError is True:
-        #continueState = speedDataFormatError()
-        #continueOrExitDueToFormat(continueState)
-
-#carSpeeds = calculateSpeedPerHr(dataDict)
-#calculateFines(carSpeeds)
-
-#print("\n Terminal will exit in 10 seconds . . .")
-#time.sleep(5)
-#print("\n Terminal will exit in 5 seconds . . .")
-#time.sleep(1)
-#print("\n Terminal will exit in 4 seconds . . .")
-#time.sleep(1)
-#print("\n Terminal will exit in 3 seconds . . .")
-#time.sleep(1)
-#print("\n Terminal will exit in 2 seconds . . .")
-#time.sleep(1)
-#print("\n Terminal will exit in 1 seconds . . .")
-#time.sleep(1)
-#print("\n Exiting . . .")
-#time.sleep(1)
