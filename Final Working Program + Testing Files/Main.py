@@ -1,3 +1,6 @@
+#MAIN PROGRAM
+#US Speeding Program by ZFC
+
 import sys
 import time
 from SpeedingModules import *
@@ -15,7 +18,7 @@ if formattingErrorForFineRates is True:
         exitDueToFormat(continueState)
 
 def speedDataLoop():
-        while True:
+        try:
                 continueState = True
                 speedFileName = speedFileCheck()
                 dataDict, speedFormatError = speedFileFormatCheck(speedFileName)
@@ -24,10 +27,12 @@ def speedDataLoop():
                         exitDueToFormat(continueState)
                         if continueState is False:
                                 return
-
                 carSpeeds = calculateSpeedPerHr(dataDict)
                 calculateFines(carSpeeds, maxSpeed, maxFine)
                 return
+        except:
+                print("An unknown error occurred")
+        
 
 while True:
         try: 
@@ -46,4 +51,3 @@ while True:
                 print("\nExcept: Invalid Input ! ! !")
 
 sys.exit()
-
