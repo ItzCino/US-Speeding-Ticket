@@ -1,9 +1,11 @@
 # US - Speeding Program By ZFC
 
+#imports following modules
 import sys
 import time
 from datetime import timedelta
 
+#defines the following variables
 speedFinesName = "fine_rates.txt"
 defaultFinesData = ["1-10-30\n",
                     "11-15-80\n",
@@ -30,7 +32,7 @@ speeding = []
 safe = []
 speedFines = []
 
-
+#Checks if fine rates file exists
 def finesFileCheck():
         try:
                 speedFinesData = open(speedFinesName, "r")
@@ -46,6 +48,8 @@ def finesFileCheck():
                 time.sleep(2)
                 return speedFinesData
 
+#Checks and validates the the format of the fines and speed ranges and alerts 
+#the user if there is an error
 def finesFileFormatCheck(speedFinesData):
         errorOccur = False
         lineCounter = 0
@@ -78,6 +82,8 @@ def finesFileFormatCheck(speedFinesData):
                                 errorOccur = True
         return speedFines, errorOccur
 
+
+#Checks if the speeding data file exists
 def speedFileCheck():
         while True:
                 try:
@@ -96,7 +102,8 @@ def speedFileCheck():
                         print("Please check your file name or enter another file name.")
                         print("Make sure the file is in the correct directory!")
 
-
+#Checks and validates the the format of the speed data and alerts 
+#the user if there is an error
 def speedFileFormatCheck(speedFileName):
         errorCarData = []
         dataDict = {}
@@ -149,6 +156,8 @@ def speedFileFormatCheck(speedFileName):
                         errorCarData.append(lineData)
 
 
+#This function prints a warning to the user if the formatting is correct for the fines
+#If there is an error Asks for whether the user wants to continue or not
 def continueOrExitForFines():
         print("#=#=#=#=# !!!PLEASE READ!!! #=#=#=#=#\n")
         print("Formatting Error occurred on the lines presented above. These errors have been REMOVED")
@@ -173,7 +182,8 @@ def continueOrExitForFines():
                 except:
                         print("Invalid Input")
 
-
+#This function prints a warning to the user if the formatting is correct for the speeding data
+#If there is an error: Asks for whether the user wants to continue or not
 def speedDataFormatError():
         print("=========================================================================================")
         print("Formatting Error occurred on the lines presented above. These errors have been REMOVED!")
@@ -197,6 +207,7 @@ def speedDataFormatError():
                 except:
                         print("Invalid Input")
 
+# Decides exits the program if the user chooses to or prints warning if user chooses to continue
 def exitDueToFormat(continueState):
         if continueState is False:
                 print("\nOperation Cancelled! . . .")
@@ -206,7 +217,9 @@ def exitDueToFormat(continueState):
                 print("\nContinuing Program: WARNING!: Continuing may not work as intended!\n")
                 time.sleep(2)
                 
-
+# Calculates the time difference between the exit and entry time for each car and saves it in a dict
+# Then converts it into a datetime object with the total_seconds() function to get the difference in seconds
+# Finds the speed in m/s and converts it to km/hr and prints appropriate warnings (if any)
 def calculateSpeedPerHr(dataDict):
         carSpeeds = {}
         for data in dataDict.keys():
@@ -242,9 +255,10 @@ def calculateSpeedPerHr(dataDict):
                               "(Potential data error)".format(data))
                         continue
                 carSpeeds[data] = kmPerHour
-                print(data, kmPerHour, " KM/JR")
         return carSpeeds
 
+
+#Calculates the fines for each car and prints out their respective fines and warnings
 def calculateFines(carSpeeds, maxSpeed, maxFine):
         
         for carPlate in carSpeeds.keys():
