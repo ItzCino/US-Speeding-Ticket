@@ -21,12 +21,12 @@ if formattingErrorForFineRates is True:
         continueState = continueOrExitForFines()
         exitDueToFormat(continueState)
 
+
 # main program loop after initalisation
 # checks that the entered file name actually exists and alerts the user if it doesn't
 # checks for formatting errors and alerts the user if any.
 # does calcuations and prints out all fines etc through the below functions and 
 # prints out any warnings and errors
-
 def speedDataLoop():
         try:
                 continueState = True
@@ -38,10 +38,12 @@ def speedDataLoop():
                         if continueState is False:
                                 return
                 carSpeeds = calculateSpeedPerHr(dataDict)
-                calculateFines(carSpeeds, maxSpeed, maxFine)
+                
+                calculateFines(dataDict, carSpeeds, maxSpeed, maxFine)
                 return
         except:
                 print("An unknown error occurred")
+        
         
 # start program or exit program loop with error checking
 while True:
