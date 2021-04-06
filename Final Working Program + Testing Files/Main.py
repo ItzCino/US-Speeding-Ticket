@@ -30,16 +30,16 @@ if formattingErrorForFineRates is True:
 def speedDataLoop():
         try:
                 continueState = True
-                speedFileName = speedFileCheck()
+                speedFileName, outputFileName = speedFileCheck()
                 dataDict, speedFormatError = speedFileFormatCheck(speedFileName)
                 if speedFormatError is True:
                         continueState = speedDataFormatError()
                         exitDueToFormat(continueState)
                         if continueState is False:
                                 return
-                carSpeeds = calculateSpeedPerHr(dataDict)
+                carSpeeds = calculateSpeedPerHr(dataDict, outputFileName)
                 
-                calculateFines(dataDict, carSpeeds, maxSpeed, maxFine)
+                calculateFines(dataDict, carSpeeds, maxSpeed, maxFine, outputFileName)
                 return
         except:
                 print("An unknown error occurred")
