@@ -1,11 +1,11 @@
 # US - Speeding Program By ZFC
 
-#imports following modules
+# imports following modules
 import sys
 import time
 from datetime import timedelta
 
-#defines the following variables
+# defines the following variables
 speedFinesName = "fine_rates.txt"
 defaultFinesData = ["1-10-30\n",
                     "11-15-80\n",
@@ -22,18 +22,18 @@ defaultFinesData = ["1-10-30\n",
 tunnelLength = 2690
 speedLimit = 80
 warningTimeLimit = 4
-warningSpeed = int(((tunnelLength / (warningTimeLimit*60))*3.6))
+warningSpeed = int(((tunnelLength / (warningTimeLimit * 60)) * 3.6))
 totalTunnelZone = tunnelLength
 
 finesTotal = {}
-dataDict = {}   
+dataDict = {}
 carSpeeds = {}
 speeding = []
 safe = []
 speedFines = []
 
 
-#Checks if fine rates file exists
+# Checks if fine rates file exists
 def finesFileCheck():
         try:
                 speedFinesData = open(speedFinesName, "r")
@@ -45,13 +45,13 @@ def finesFileCheck():
                 defaultFinesFile.close()
                 speedFinesData = open("fine_rates.txt", "r")
                 print('WARNING: A FINE RATES TIME DOES NOT EXSIST!!!'
-                ' A DEFAULT "FINE RATES" FILE WILL BE AUTOMATICALLY CREATED!!!!')
+                      ' A DEFAULT "FINE RATES" FILE WILL BE AUTOMATICALLY CREATED!!!!')
                 time.sleep(2)
-                return speedFinesData   
+                return speedFinesData
 
 
-#Checks and validates the the format of the fines and speed ranges and alerts 
-#the user if there is an error
+# Checks and validates the the format of the fines and speed ranges and alerts
+# the user if there is an error
 def finesFileFormatCheck(speedFinesData):
         errorOccur = False
         lineCounter = 0
@@ -65,7 +65,7 @@ def finesFileFormatCheck(speedFinesData):
                         fineAndFee = fines.split('-')
                         if len(fineAndFee) > 3 or len(fineAndFee) < 3:
                                 print("WARNING!: Formatting occured in fine_rates.txt"
-                                " file on line {}: {}".format(lineCounter, fines))
+                                      " file on line {}: {}".format(lineCounter, fines))
                                 errorOccur = True
                                 continue
                         fine = fineAndFee[2]
@@ -80,14 +80,14 @@ def finesFileFormatCheck(speedFinesData):
                 except:
                         if fines != "\n":
                                 print("Except: WARNING!: Formatting occured in fine_rates.txt"
-                                " file on line {}: {}".format(lineCounter, fines))
+                                      " file on line {}: {}".format(lineCounter, fines))
                                 time.sleep(1)
                                 errorOccur = True
         return speedFines, errorOccur
 
 
-#Checks if the speeding data file exists
-#gets a name for the output file
+# Checks if the speeding data file exists
+# gets a name for the output file
 def speedFileCheck():
         while True:
                 try:
@@ -98,7 +98,7 @@ def speedFileCheck():
                                 continue
                         speedFileData = open(speedFileName, "r")
                         speedFileData.close()
-                        outputFileName = input("\nPlease input a name for the output file" 
+                        outputFileName = input("\nPlease input a name for the output file"
                                                " (fines + warnings): ")
                         return speedFileName, (outputFileName + ".txt")
 
@@ -109,8 +109,8 @@ def speedFileCheck():
                         print("Make sure the file is in the correct directory!")
 
 
-#Checks and validates the the format of the speed data and alerts 
-#the user if there is an error
+# Checks and validates the the format of the speed data and alerts
+# the user if there is an error
 def speedFileFormatCheck(speedFileName):
         errorCarData = []
         dataDict = {}
@@ -127,9 +127,9 @@ def speedFileFormatCheck(speedFileName):
                                 if lineData == "\n" or lineData == "" or lineData == " ":
                                         continue
                                 if lineData in errorCarData:
-                                        continue                                
-                                try:    
-                                        data = lineData.replace(" ","")
+                                        continue
+                                try:
+                                        data = lineData.replace(" ", "")
                                         dataKey, dataValue = data.split(",")
                                         dataValue = ((dataValue.split("\n"))[0])
                                         temp1, temp2, temp3 = dataValue.split(":")
@@ -138,7 +138,7 @@ def speedFileFormatCheck(speedFileName):
                                         print("iWARNING!!! Error occurred on line {}: {}"
                                               .format(speedFileLineCounter, data))
                                         speedFormatError = True
-                                        errorCarData.append(lineData)  
+                                        errorCarData.append(lineData)
                                         continue
                                 if (int(checkValue) is False) or len(checkValue) != 6:
                                         print("WARNING!!! Error occurred on line {}: {}"
@@ -152,19 +152,19 @@ def speedFileFormatCheck(speedFileName):
                                         dataDict[dataKey].append(dataValue)
                                 else:
                                         dataDict[dataKey].append(dataValue)
-                                
+
                         return dataDict, speedFormatError
                 except:
                         print("\nExcept: WARNING!!! Error occurred on line {}: {}"
                               .format(speedFileLineCounter, lineData))
-                        #print(errorCarData)
+                        # print(errorCarData)
                         speedFormatError = True
                         speedFileLineCounter = 0
                         errorCarData.append(lineData)
 
 
-#This function prints a warning to the user if the formatting is correct for the fines
-#If there is an error Asks for whether the user wants to continue or not
+# This function prints a warning to the user if the formatting is correct for the fines
+# If there is an error Asks for whether the user wants to continue or not
 def continueOrExitForFines():
         print("#=#=#=#=# !!!PLEASE READ!!! #=#=#=#=#\n")
         print("Formatting Error occurred on the lines presented above. These errors have been REMOVED")
@@ -190,8 +190,8 @@ def continueOrExitForFines():
                         print("Invalid Input")
 
 
-#This function prints a warning to the user if the formatting is correct for the speeding data
-#If there is an error: Asks for whether the user wants to continue or not
+# This function prints a warning to the user if the formatting is correct for the speeding data
+# If there is an error: Asks for whether the user wants to continue or not
 def speedDataFormatError():
         print("=========================================================================================")
         print("Formatting Error occurred on the lines presented above. These errors have been REMOVED!")
@@ -221,14 +221,14 @@ def exitDueToFormat(continueState):
         if continueState is False:
                 print("\nOperation Cancelled! . . .")
                 time.sleep(2)
-                
+
         if continueState is True:
                 print("\nContinuing Program: WARNING!: Continuing may not work as intended!\n")
                 time.sleep(2)
-                
-                
+
+
 # Calculates the time difference between the exit and entry time for each car and saves it in a dict
-# Then converts it into a datetime object with the total_seconds() function to get the difference 
+# Then converts it into a datetime object with the total_seconds() function to get the difference
 # in seconds
 # Finds the speed in m/s and converts it to km/hr and prints appropriate warnings (if any)
 def calculateSpeedPerHr(dataDict, outputFileName):
@@ -240,7 +240,7 @@ def calculateSpeedPerHr(dataDict, outputFileName):
                               " OR DATA IS INCORRECT!!!".format(data))
                         output.write("{}\t has not exited tunnel\n".format(data))
                         continue
-                
+
                 entryTime = ((dataDict[data])[0])
                 exitTime = ((dataDict[data])[1])
                 if entryTime == exitTime:
@@ -250,11 +250,11 @@ def calculateSpeedPerHr(dataDict, outputFileName):
                         continue
                 entryTimeSplit = entryTime.split(":")
                 exitTimeSplit = exitTime.split(":")
-                entryTimeInSec = timedelta(hours=int((entryTimeSplit[0])), 
-                                           minutes=int((entryTimeSplit[1])), 
+                entryTimeInSec = timedelta(hours=int((entryTimeSplit[0])),
+                                           minutes=int((entryTimeSplit[1])),
                                            seconds=int((entryTimeSplit[2])))
-                exitTimeInSec = timedelta(hours=int((exitTimeSplit[0])), 
-                                          minutes=int((exitTimeSplit[1])), 
+                exitTimeInSec = timedelta(hours=int((exitTimeSplit[0])),
+                                          minutes=int((exitTimeSplit[1])),
                                           seconds=int((exitTimeSplit[2])))
                 differenceInTime = (exitTimeInSec.total_seconds() - entryTimeInSec.total_seconds())
                 metersPerSecond = totalTunnelZone / differenceInTime
@@ -265,7 +265,7 @@ def calculateSpeedPerHr(dataDict, outputFileName):
         return carSpeeds
 
 
-#Calculates the fines for each car and prints out their respective fines and warnings
+# Calculates the fines for each car and prints out their respective fines and warnings
 def calculateFines(dataDict, carSpeeds, maxSpeed, maxFine, outputFileName):
         ticketCounter = 0
         output = open(outputFileName, "a+")
@@ -275,7 +275,7 @@ def calculateFines(dataDict, carSpeeds, maxSpeed, maxFine, outputFileName):
         print("                      Raw Data:                     ")
         print("====================================================\n")
         for carPlate in carSpeeds.keys():
-                #loops through a list of speed ranges
+                # loops through a list of speed ranges
                 for speedRange in speedFines:
                         speed = (carSpeeds[carPlate] - speedLimit)
                         speedRangeMin = speedRange[0]
@@ -283,30 +283,29 @@ def calculateFines(dataDict, carSpeeds, maxSpeed, maxFine, outputFileName):
                         if (speed <= speedRangeMax) and (speed >= speedRangeMin):
                                 carFine = speedRange[2]
                                 print("{} \t {} \t {} \t {} KM/HR\t${}"
-                                .format(carPlate, dataDict[carPlate][0], dataDict[carPlate][1], 
-                                        carSpeeds[carPlate], carFine))
+                                      .format(carPlate, dataDict[carPlate][0], dataDict[carPlate][1],
+                                              carSpeeds[carPlate], carFine))
                                 continue
                 if ((speed + speedLimit) * -1) > 0:
                         print("WARNING!!! Car: {} EXIT TIME IS LATER THAN ENTRY TIME "
                               "(Potential data error)".format(carPlate))
                         continue
-                if (speed + speedLimit) <= warningSpeed:
+                if (speed + speedLimit) < warningSpeed:
                         print("WARNING!!! Car: {} has was in the tunnel for more than {} minutes"
-                              .format(carPlate, warningTimeLimit))  
+                              .format(carPlate, warningTimeLimit))
                         continue
                 if (speed <= 0):
                         carFine = None
                         print("{} \t {} \t {} \t {} KM/HR\t${}"
-                                .format(carPlate, dataDict[carPlate][0], dataDict[carPlate][1],
-                                        carSpeeds[carPlate], carFine))
+                              .format(carPlate, dataDict[carPlate][0], dataDict[carPlate][1],
+                                      carSpeeds[carPlate], carFine))
                 if speed > maxSpeed:
                         print("WARNING!!! EXCESSIVE SPEEDING: {}\t{}\t{}\t{} KM/HR\t${}"
-                                .format(carPlate, dataDict[carPlate][0], dataDict[carPlate][1],
-                                        carSpeeds[carPlate], maxFine))
+                              .format(carPlate, dataDict[carPlate][0], dataDict[carPlate][1],
+                                      carSpeeds[carPlate], maxFine))
 
-        
-        #prints out all the tickets issued and warnings (if any)
-        #Also outputs all the fines and warnings to the output file
+        # prints out all the tickets issued and warnings (if any)
+        # Also outputs all the fines and warnings to the output file
         print("\n====================================================")
         print("               Tickets Issued + WARNINGS :          ")
         print("====================================================\n")
@@ -321,19 +320,16 @@ def calculateFines(dataDict, carSpeeds, maxSpeed, maxFine, outputFileName):
                                 ticketCounter += 1
                                 carFine = speedRange[2]
                                 finesTotal[carFine] = finesTotal[carFine] + 1
-                                #print("{} \t {} \t {} \t {} KM/HR \t ${}\n"
-                                #.format(carPlate, dataDict[carPlate][0], dataDict[carPlate][1], 
-                                        #carSpeeds[carPlate], carFine))
                                 output.write("{} \t {} \t {} \t {} KM/HR\t${}\n"
-                                .format(carPlate, dataDict[carPlate][0], dataDict[carPlate][1], 
-                                        carSpeeds[carPlate], carFine))
+                                             .format(carPlate, dataDict[carPlate][0], dataDict[carPlate][1],
+                                                     carSpeeds[carPlate], carFine))
                                 continue
-                
+
                 if ((speed + speedLimit) * -1) > 0:
                         print("WARNING!!! Car: {} EXIT TIME IS LATER THAN ENTRY TIME "
                               "(Potential data error)".format(carPlate))
                         output.write("WARNING!!! Car: {} EXIT TIME IS LATER THAN ENTRY TIME "
-                              "(Potential data error)\n".format(carPlate))
+                                     "(Potential data error)\n".format(carPlate))
                         continue
                 if (speed + speedLimit) <= warningSpeed:
                         print("WARNING!!! Car: {} has was in the tunnel for more than {} minutes"
@@ -346,17 +342,17 @@ def calculateFines(dataDict, carSpeeds, maxSpeed, maxFine, outputFileName):
                         ticketCounter += 1
                         finesTotal[maxFine] = finesTotal[maxFine] + 1
                         print("WARNING!!! EXCESSIVE SPEEDING: {}\t{}\t{}\t{} KM/HR\t${}"
-                                .format(carPlate, dataDict[carPlate][0], dataDict[carPlate][1],
-                                        carSpeeds[carPlate], maxFine))
+                              .format(carPlate, dataDict[carPlate][0], dataDict[carPlate][1],
+                                      carSpeeds[carPlate], maxFine))
                         output.write("WARNING!!! EXCESSIVE SPEEDING: {}\t{}\t{}\t{} KM/HR\t${}\n"
-                                .format(carPlate, dataDict[carPlate][0], dataDict[carPlate][1],
-                                        carSpeeds[carPlate], maxFine))
+                                     .format(carPlate, dataDict[carPlate][0], dataDict[carPlate][1],
+                                             carSpeeds[carPlate], maxFine))
                         continue
-        #prints out all tickets Issued (if any) as well as the total amount of fines etc.
+        # prints out all tickets Issued (if any) as well as the total amount of fines etc.
         if ticketCounter == 0:
                 print("\nNo Speeding Cars Found -- > No Tickets Generated\n")
                 output.write("\nNo Speeding Cars Found -- > No Tickets Generated\n")
-        else:   
+        else:
                 print("\nTotal Tickets Issues and Amount:")
                 output.write("\nTotal Tickets Issues and Amount:\n")
                 totalFineAmount = 0
@@ -376,6 +372,5 @@ def calculateFines(dataDict, carSpeeds, maxSpeed, maxFine, outputFileName):
                              .format(totalTickets))
                 print("Total Fine Amount: ${}\n ".format(totalFineAmount))
                 output.write("Total Fine Amount: ${}\n".format(totalFineAmount))
-        
+        output.write("\n=============================================================\n")
         output.close()
-        
