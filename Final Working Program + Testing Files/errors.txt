@@ -1,0 +1,106 @@
+AKLONE	 has not exited tunnel
+WARNING!!! Car: AKL60 has was in the tunnel for more than 4 minutes
+
+No Speeding Cars Found -- > No Tickets Generated
+AKLONE	 has not exited tunnel
+WARNING!!! Car: AKL60 has was in the tunnel for more than 4 minutes
+
+No Speeding Cars Found -- > No Tickets Generated
+=============================================================AKL50 	 11:04:00 	 11:05:50 	 88 KM/HR	$30
+BAL560 	 11:04:00 	 11:05:55 	 84 KM/HR	$30
+WARNING!!! Car: DB356 has was in the tunnel for more than 4 minutes
+DCZ584 	 11:04:01 	 11:05:56 	 84 KM/HR	$30
+DDA970 	 11:04:02 	 11:05:57 	 84 KM/HR	$30
+ED116 	 11:04:03 	 11:05:48 	 92 KM/HR	$80
+EUE969 	 11:04:04 	 11:05:59 	 84 KM/HR	$30
+FGA763 	 11:04:06 	 11:05:59 	 85 KM/HR	$30
+WARNING!!! EXCESSIVE SPEEDING: FN806	11:04:07	11:04:34	358 KM/HR	$630
+FTA399 	 11:04:08 	 11:06:04 	 83 KM/HR	$30
+FX961 	 11:04:09 	 11:05:47 	 98 KM/HR	$120
+GEL840 	 11:04:11 	 11:05:48 	 99 KM/HR	$120
+GRN22 	 11:04:12 	 11:05:47 	 101 KM/HR	$170
+HFE58 	 11:04:13 	 11:06:09 	 83 KM/HR	$30
+HFF803 	 11:04:14 	 11:05:50 	 100 KM/HR	$120
+HU863 	 11:04:14 	 11:06:08 	 84 KM/HR	$30
+HWR984 	 11:04:14 	 11:06:11 	 82 KM/HR	$30
+IES281 	 11:04:15 	 11:06:00 	 92 KM/HR	$80
+IJ286 	 11:04:16 	 11:05:53 	 99 KM/HR	$120
+IR837 	 11:04:16 	 11:05:57 	 95 KM/HR	$80
+JB818 	 11:04:17 	 11:06:04 	 90 KM/HR	$30
+JC806 	 11:04:17 	 11:05:48 	 106 KM/HR	$230
+JH92 	 11:04:17 	 11:06:11 	 84 KM/HR	$30
+JX741 	 11:04:20 	 11:06:13 	 85 KM/HR	$30
+JY45 	 11:04:21 	 11:06:19 	 82 KM/HR	$30
+KHH28 	 11:04:22 	 11:05:48 	 112 KM/HR	$300
+KJ923 	 11:04:23 	 11:05:45 	 118 KM/HR	$400
+KK809 	 11:04:24 	 11:06:00 	 100 KM/HR	$120
+KL724 	 11:04:24 	 11:06:00 	 100 KM/HR	$120
+KU762 	 11:04:24 	 11:06:04 	 96 KM/HR	$120
+KY265 	 11:04:25 	 11:06:06 	 95 KM/HR	$80
+LDC67 	 11:04:26 	 11:05:50 	 115 KM/HR	$300
+LN155 	 11:04:26 	 11:05:47 	 119 KM/HR	$400
+LO625 	 11:04:26 	 11:06:13 	 90 KM/HR	$30
+LYE407 	 11:04:27 	 11:06:02 	 101 KM/HR	$170
+MBZ5 	 11:04:27 	 11:06:26 	 81 KM/HR	$30
+MI99 	 11:04:28 	 11:06:01 	 104 KM/HR	$170
+MK273 	 11:04:28 	 11:05:56 	 110 KM/HR	$230
+NG542 	 11:04:28 	 11:06:03 	 101 KM/HR	$170
+NP366 	 11:04:28 	 11:06:15 	 90 KM/HR	$30
+OB98 	 11:04:29 	 11:06:03 	 103 KM/HR	$170
+OC574 	 11:04:29 	 11:06:12 	 94 KM/HR	$80
+OS808 	 11:04:30 	 11:06:04 	 103 KM/HR	$170
+PO549 	 11:04:31 	 11:05:50 	 122 KM/HR	$510
+RE739 	 11:04:31 	 11:06:16 	 92 KM/HR	$80
+RS437 	 11:04:31 	 11:06:03 	 105 KM/HR	$170
+RT303 	 11:04:32 	 11:06:17 	 92 KM/HR	$80
+SG937 	 11:04:32 	 11:05:57 	 113 KM/HR	$300
+TA6 	 11:04:32 	 11:06:24 	 86 KM/HR	$30
+TB72 	 11:04:33 	 11:06:25 	 86 KM/HR	$30
+TX950 	 11:04:33 	 11:06:26 	 85 KM/HR	$30
+UU771 	 11:04:33 	 11:05:50 	 125 KM/HR	$510
+WT19 	 11:04:33 	 11:05:56 	 116 KM/HR	$400
+XR677 	 11:04:33 	 11:06:07 	 103 KM/HR	$170
+YS178 	 11:04:34 	 11:05:58 	 115 KM/HR	$300
+WARNING!!! EXCESSIVE SPEEDING: BIGBRAINYASH	11:10:00	11:10:40	242 KM/HR	$630
+
+Total Tickets Issues and Amount:
+Fine: $30, No. Of Tickets: 20, Total Fines for this fine amount: $600
+Fine: $80, No. Of Tickets: 7, Total Fines for this fine amount: $560
+Fine: $120, No. Of Tickets: 7, Total Fines for this fine amount: $840
+Fine: $170, No. Of Tickets: 8, Total Fines for this fine amount: $1360
+Fine: $230, No. Of Tickets: 2, Total Fines for this fine amount: $460
+Fine: $300, No. Of Tickets: 4, Total Fines for this fine amount: $1200
+Fine: $400, No. Of Tickets: 3, Total Fines for this fine amount: $1200
+Fine: $510, No. Of Tickets: 2, Total Fines for this fine amount: $1020
+Fine: $630, No. Of Tickets: 2, Total Fines for this fine amount: $1260
+
+Total Number of tickets Issued: 55 Tickets Issued
+Total Fine Amount: $8500
+=============================================================['11:00:00', '11:00:00']	 has same exit and entry times
+YGA825	 has not exited tunnel
+RUH118 	 11:00:00 	 11:01:54 	 84 KM/HR	$30
+WARNING!!! EXCESSIVE SPEEDING: TLZ628	11:00:00	11:01:02	156 KM/HR	$630
+WARNING!!! Car: OML094 EXIT TIME IS LATER THAN ENTRY TIME (Potential data error)
+QBD722 	 11:00:00 	 11:01:32 	 105 KM/HR	$170
+WKF078 	 11:00:00 	 11:01:21 	 119 KM/HR	$400
+KBC824 	 11:00:00 	 11:01:17 	 125 KM/HR	$510
+XAF040 	 11:00:00 	 11:01:28 	 110 KM/HR	$230
+JAJ777 	 11:00:00 	 11:01:41 	 95 KM/HR	$80
+HXS095 	 11:00:00 	 11:01:24 	 115 KM/HR	$300
+WARNING!!! EXCESSIVE SPEEDING: ABC	11:00:00	11:00:01	9684 KM/HR	$630
+
+Total Tickets Issues and Amount:
+Fine: $30, No. Of Tickets: 1, Total Fines for this fine amount: $30
+Fine: $80, No. Of Tickets: 1, Total Fines for this fine amount: $80
+Fine: $120, No. Of Tickets: 0, Total Fines for this fine amount: $0
+Fine: $170, No. Of Tickets: 1, Total Fines for this fine amount: $170
+Fine: $230, No. Of Tickets: 1, Total Fines for this fine amount: $230
+Fine: $300, No. Of Tickets: 1, Total Fines for this fine amount: $300
+Fine: $400, No. Of Tickets: 1, Total Fines for this fine amount: $400
+Fine: $510, No. Of Tickets: 1, Total Fines for this fine amount: $510
+Fine: $630, No. Of Tickets: 2, Total Fines for this fine amount: $1260
+
+Total Number of tickets Issued: 9 Tickets Issued
+Total Fine Amount: $2980
+
+=============================================================
